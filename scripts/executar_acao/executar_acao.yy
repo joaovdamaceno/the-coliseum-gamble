@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"executar_acao",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"executar_acao",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

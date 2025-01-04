@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"simular_batalha",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"simular_batalha",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

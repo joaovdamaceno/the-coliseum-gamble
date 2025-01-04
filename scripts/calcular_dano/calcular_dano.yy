@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"calcular_dano",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"calcular_dano",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"finalizar_batalha",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"finalizar_batalha",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

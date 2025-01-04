@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"desenhar_texto_wrapped",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"desenhar_texto_wrapped",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

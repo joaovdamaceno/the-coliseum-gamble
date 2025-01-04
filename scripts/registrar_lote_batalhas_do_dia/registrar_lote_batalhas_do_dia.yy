@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"registrar_lote_batalhas_do_dia",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"registrar_lote_batalhas_do_dia",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

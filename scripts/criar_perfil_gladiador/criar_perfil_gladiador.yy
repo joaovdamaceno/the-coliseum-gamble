@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"criar_perfil_gladiador",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"criar_perfil_gladiador",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

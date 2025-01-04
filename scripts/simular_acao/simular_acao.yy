@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"simular_acao",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"simular_acao",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
