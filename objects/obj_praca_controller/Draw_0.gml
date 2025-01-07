@@ -75,44 +75,47 @@ var sprite_x = room_width - 274;
 var sprite_y = 100;
 
 // Idle animation (light rotation & squash)
-var idle_angle  = sin(current_time / 1000) * 5;
-var idle_squash = 1 + 0.05 * sin(current_time / 500);
-var gladiator_scale = 2;
+var idle_angle = sin(current_time / 1000) * 5;
+var idle_y = sin(current_time / 500) * 2;
+var idle_squash = 1 + 0.04 * sin(current_time / 500);
+var gladiator_scale = 10;
 
 draw_set_color(c_white); 
 
 // Draw legs
 if (_gladiator.left_leg_sprite != -1) {
-    draw_sprite_ext(_gladiator.left_leg_sprite, 0, sprite_x, sprite_y + 50, 
-        gladiator_scale, gladiator_scale * idle_squash, idle_angle, c_white, 1);
+    draw_sprite_ext(_gladiator.left_leg_sprite, 0, sprite_x + (1 * gladiator_scale), sprite_y + (25 * gladiator_scale), 
+        gladiator_scale, gladiator_scale, 0, c_white, 1);
 }
 if (_gladiator.right_leg_sprite != -1) {
-    draw_sprite_ext(_gladiator.right_leg_sprite, 0, sprite_x + 20, sprite_y + 50, 
-        gladiator_scale, gladiator_scale * idle_squash, -idle_angle, c_white, 1);
+    draw_sprite_ext(_gladiator.right_leg_sprite, 0, sprite_x + (9 * gladiator_scale), sprite_y + (25 * gladiator_scale), 
+        gladiator_scale, gladiator_scale, 0, c_white, 1);
 }
 // Body
 if (_gladiator.body_sprite != -1) {
-    draw_sprite_ext(_gladiator.body_sprite, 0, sprite_x + 10, sprite_y + 20, 
+    draw_sprite_ext(_gladiator.body_sprite, 0, sprite_x + (2  * gladiator_scale), sprite_y + (14 * gladiator_scale), 
         gladiator_scale, gladiator_scale * idle_squash, 0, c_white, 1);
 }
+
 // Arms
 if (_gladiator.left_arm_sprite != -1) {
-    draw_sprite_ext(_gladiator.left_arm_sprite, 0, sprite_x, sprite_y + 20, 
+    draw_sprite_ext(_gladiator.left_arm_sprite, 0, sprite_x - (2 * gladiator_scale), sprite_y + (19* gladiator_scale), 
         gladiator_scale, gladiator_scale * idle_squash, -idle_angle, c_white, 1);
 }
 if (_gladiator.right_arm_sprite != -1) {
-    draw_sprite_ext(_gladiator.right_arm_sprite, 0, sprite_x + 20, sprite_y + 20, 
+    draw_sprite_ext(_gladiator.right_arm_sprite, 0, sprite_x + (13 * gladiator_scale), sprite_y + (19 * gladiator_scale), 
         gladiator_scale, gladiator_scale * idle_squash, idle_angle, c_white, 1);
 }
 // Head
 if (_gladiator.head_sprite != -1) {
-    draw_sprite_ext(_gladiator.head_sprite, 0, sprite_x + 10, sprite_y, 
-        gladiator_scale, gladiator_scale * idle_squash, 0, c_white, 1);
+    draw_sprite_ext(_gladiator.head_sprite, 0, sprite_x - (1 * gladiator_scale), sprite_y + idle_y, 
+        gladiator_scale, gladiator_scale, 0, c_white, 1);
 }
+
 // Weapon
 if (_gladiator.weapon_sprite != -1) {
-    draw_sprite_ext(_gladiator.weapon_sprite, 0, sprite_x + 25, sprite_y + 20, 
-        gladiator_scale, gladiator_scale * idle_squash, idle_angle, c_white, 1);
+    draw_sprite_ext(_gladiator.weapon_sprite, 0, sprite_x + (13 * gladiator_scale), sprite_y + (24 * gladiator_scale), 
+        gladiator_scale * idle_squash, gladiator_scale, idle_angle, c_white, 1);
 }
 
 // ====== SCISSOR TEST & RENDER HISTORY ======

@@ -57,13 +57,21 @@ function criar_perfil_gladiador(_tipo, _generate_history) {
     }
 
     // Atribuir sprites aleatórias
-    _gladiator.head_sprite     = global.gladiator_heads[    irandom_range(0, array_length(global.gladiator_heads)    - 1)];
-    _gladiator.body_sprite     = global.gladiator_bodies[   irandom_range(0, array_length(global.gladiator_bodies)   - 1)];
-    _gladiator.left_arm_sprite = global.gladiator_left_arms[irandom_range(0, array_length(global.gladiator_left_arms)- 1)];
-    _gladiator.right_arm_sprite= global.gladiator_right_arms[irandom_range(0, array_length(global.gladiator_right_arms)-1)];
-    _gladiator.left_leg_sprite = global.gladiator_left_legs[irandom_range(0, array_length(global.gladiator_left_legs)-1)];
-    _gladiator.right_leg_sprite= global.gladiator_right_legs[irandom_range(0, array_length(global.gladiator_right_legs)-1)];
-    _gladiator.weapon_sprite   = choose(
+    _gladiator.head_sprite = global.gladiator_heads[irandom_range(0, array_length(global.gladiator_heads) - 1)];
+    _gladiator.body_sprite = global.gladiator_bodies[irandom_range(0, array_length(global.gladiator_bodies) - 1)];
+
+    // Braços (mesmo índice para ambos os lados)
+    var arm_index = irandom_range(0, array_length(global.gladiator_left_arms) - 1);
+    _gladiator.left_arm_sprite = global.gladiator_left_arms[arm_index];
+    _gladiator.right_arm_sprite = global.gladiator_right_arms[arm_index];
+
+    // Pernas (mesmo índice para ambos os lados)
+    var leg_index = irandom_range(0, array_length(global.gladiator_left_legs) - 1);
+    _gladiator.left_leg_sprite = global.gladiator_left_legs[leg_index];
+    _gladiator.right_leg_sprite = global.gladiator_right_legs[leg_index];
+
+    // Arma
+    _gladiator.weapon_sprite = choose(
         -1,
         global.gladiator_weapons[irandom_range(0, array_length(global.gladiator_weapons) - 1)]
     );
