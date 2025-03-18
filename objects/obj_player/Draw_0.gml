@@ -1,0 +1,1 @@
+desenhar_gladiador(player, x, y - 16 * 2 + 3, 3, 0, 0, 0);

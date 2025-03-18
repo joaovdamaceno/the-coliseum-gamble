@@ -2,10 +2,10 @@ draw_text(50, 50, player.name + " HP: " + string(player.hp) + "/" + string(playe
 draw_text(50, 70, enemy.name + " HP: " + string(enemy.hp) + "/" + string(enemy.max_hp));
 
 // Desenhar player
-desenhar_gladiador(player, room_width/2 - 128, 220);
+desenhar_gladiador(player, room_width/2 - 128, 208, 6, 0, 0, 0);
 
 // Desenhar inimigo
-desenhar_gladiador(enemy, room_width/2 + 128, 220);
+desenhar_gladiador(enemy, room_width/2 + 128, 208, 6, 0, 0, 0);
 
 if (battle_state == "player_turn") {
     draw_text(50, 100, "Escolha sua ação:");

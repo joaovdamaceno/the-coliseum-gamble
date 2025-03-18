@@ -1,5 +1,3 @@
-/// Evento Draw de obj_journal_controller
-
 draw_text(50, 50, "Jornal de Batalhas (Página " + string(pagina_atual + 1) + ")");
 
 if (ds_list_size(global.historico_batalhas) == 0) {

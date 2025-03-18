@@ -1,34 +1,42 @@
-/// Evento Draw de obj_praca_controller
-
-// ====== SUGGESTED COLORS & FONTS ======
+// ====== COLORS & FONTS ======
 // Example RGBA Colors
-var cor_titulo     = make_color_rgb(255, 200, 50);   // Golden yellow
-var cor_subtitulo  = make_color_rgb(200, 255, 200);  // Light green
-var cor_texto      = c_white;                        // Normal white
-var cor_selecao    = make_color_rgb(255, 100, 100);  // Light red for highlight
+var cor_titulo     = #81492C;   
+var cor_subtitulo  = #81492C;  
+var cor_texto      = #81492C;                     
+var cor_selecao    = #F1B881;  
 
 draw_set_font(fnt_default);
 
 // ====== BACKGROUND ======
-// If you have a background sprite, e.g. "spr_bg_praca":
-/// draw_sprite_stretched(spr_bg_praca, 0, 0, 0, room_width, room_height);
-// Otherwise, let's just do a rectangle
-draw_set_color(make_color_rgb(20, 20, 20));
-draw_rectangle(0, 0, room_width, room_height, false);
+var paper_x = 30; // X position for the background
+var paper_y = 16; // Y position for the background
+var paper_width = room_width - 343; // Width of the paper area
+var paper_height = room_height - 64; // Height of the paper area
+
+var paper_shadow_color = make_color_rgb(0, 0, 0); 
+var paper_shadow_offset_x = 3; // Horizontal offset
+var paper_shadow_offset_y = 3; // Vertical offset
+var paper_shadow_alpha = 0.2;
+
+// Draw shadow
+draw_sprite_stretched_ext(spr_medieval_paper, 0, paper_x + paper_shadow_offset_x, paper_y + paper_shadow_offset_y,
+		paper_width, paper_height, paper_shadow_color, paper_shadow_alpha);
+
+draw_sprite_stretched(spr_medieval_paper, 0, paper_x, paper_y, paper_width, paper_height);
 
 // ====== MAIN TITLE ======
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
 draw_set_color(cor_titulo);
-draw_text(50, 20, "Praça dos Gladiadores");
+draw_text(100, 64, "Praça dos Gladiadores");
 
 // ====== SUBTITLE / Instruction ======
 draw_set_color(cor_subtitulo);
-draw_text(50, 50, "Selecione um Gladiador para Comprar:");
+draw_text(100, 94, "Selecione um Gladiador para Comprar:");
 
 // ====== LIST OF GLADIATORS ======
-var _y_start = 80;
+var _y_start = 124;
 draw_set_color(cor_texto);
 
 for (var _i = 0; _i < ds_list_size(gladiadores_disponiveis); _i++) {
@@ -39,8 +47,8 @@ for (var _i = 0; _i < ds_list_size(gladiadores_disponiveis); _i++) {
     // If selected, highlight
     if (_i == gladiador_selecionado) {
         // Draw a light rectangle behind it
-        draw_set_color(make_color_rgb(255, 255, 255));
-        draw_rectangle(45, _pos_y, 300, _pos_y + 17, false);
+        draw_set_color(cor_texto);
+        draw_rectangle(95, _pos_y, 300, _pos_y + 17, false);
 
         draw_set_color(cor_selecao);
         _text = "> " + _text;
@@ -48,14 +56,26 @@ for (var _i = 0; _i < ds_list_size(gladiadores_disponiveis); _i++) {
         draw_set_color(cor_texto);
     }
 
-    draw_text(50, _pos_y, _text);
+    draw_text(100, _pos_y, _text);
 }
+
+// Draw vertical line
+draw_set_color(#A25B38);
+var vertical_line_w = 1;
+var vertical_line_h = room_height - 180;
+draw_rectangle(394, 64, 394 + vertical_line_w, 80 + vertical_line_h, false);
+
+// ====== CONTROLLERS TUTORIAL ======
+draw_set_color(cor_texto);
+draw_text_ext(100, room_height - 280,
+		"Use as setas esquerda/direita para navegar pelas batalhas.\n\nUse o scroll do mouse para visualizar mais.\n\nPressione Enter para comprar o gladiador selecionado.", 
+		20, 270);
 
 // ====== SHOW HISTORY FOR SELECTED GLADIATOR ======
 var _gladiator = ds_list_find_value(gladiadores_disponiveis, gladiador_selecionado);
 
-var _history_x = 400; 
-var _history_y = 50;  // Vertical offset
+var _history_x = 432; 
+var _history_y = 64;  // Vertical offset
 draw_set_color(cor_titulo);
 draw_text(_history_x, _history_y, "Histórico de " + _gladiator.name + " (Página " + string(battle_page + 1) + ")");
 
@@ -71,58 +91,35 @@ var draw_area_width  = margin_right_end - margin_left;
 var draw_area_height = room_height - margin_top - margin_bottom;
 
 // ====== GLADIATOR (Sprite) ON THE RIGHT SIDE ======
-var sprite_x = room_width - 274; 
-var sprite_y = 100;
+var sprite_x = room_width - 248; 
+var sprite_y = 148;
 
 // Idle animation (light rotation & squash)
 var idle_angle = sin(current_time / 1000) * 5;
 var idle_y = sin(current_time / 500) * 2;
 var idle_squash = 1 + 0.04 * sin(current_time / 500);
-var gladiator_scale = 10;
+var gladiator_scale = 7;
 
-draw_set_color(c_white); 
+// Define shadow color and offset
+var shadow_color = make_color_rgb(0, 0, 0); 
+var shadow_offset_x = 5; // Horizontal offset
+var shadow_offset_y = 5; // Vertical offset
+var shadow_alpha = 0.2;
 
-// Draw legs
-if (_gladiator.left_leg_sprite != -1) {
-    draw_sprite_ext(_gladiator.left_leg_sprite, 0, sprite_x + (1 * gladiator_scale), sprite_y + (25 * gladiator_scale), 
+// Draw shadows
+draw_set_color(shadow_color);
+
+desenhar_gladiador(_gladiator, sprite_x, sprite_y, gladiator_scale, shadow_offset_x, shadow_offset_y, shadow_alpha);
+
+// Draw roman pillar below selected gladiator
+draw_sprite_ext(spr_roman_pillar, 0, sprite_x - (8 * gladiator_scale), sprite_y + (31 * gladiator_scale), 
         gladiator_scale, gladiator_scale, 0, c_white, 1);
-}
-if (_gladiator.right_leg_sprite != -1) {
-    draw_sprite_ext(_gladiator.right_leg_sprite, 0, sprite_x + (9 * gladiator_scale), sprite_y + (25 * gladiator_scale), 
-        gladiator_scale, gladiator_scale, 0, c_white, 1);
-}
-// Body
-if (_gladiator.body_sprite != -1) {
-    draw_sprite_ext(_gladiator.body_sprite, 0, sprite_x + (2  * gladiator_scale), sprite_y + (14 * gladiator_scale), 
-        gladiator_scale, gladiator_scale * idle_squash, 0, c_white, 1);
-}
-
-// Arms
-if (_gladiator.left_arm_sprite != -1) {
-    draw_sprite_ext(_gladiator.left_arm_sprite, 0, sprite_x - (2 * gladiator_scale), sprite_y + (19* gladiator_scale), 
-        gladiator_scale, gladiator_scale * idle_squash, -idle_angle, c_white, 1);
-}
-if (_gladiator.right_arm_sprite != -1) {
-    draw_sprite_ext(_gladiator.right_arm_sprite, 0, sprite_x + (13 * gladiator_scale), sprite_y + (19 * gladiator_scale), 
-        gladiator_scale, gladiator_scale * idle_squash, idle_angle, c_white, 1);
-}
-// Head
-if (_gladiator.head_sprite != -1) {
-    draw_sprite_ext(_gladiator.head_sprite, 0, sprite_x - (1 * gladiator_scale), sprite_y + idle_y, 
-        gladiator_scale, gladiator_scale, 0, c_white, 1);
-}
-
-// Weapon
-if (_gladiator.weapon_sprite != -1) {
-    draw_sprite_ext(_gladiator.weapon_sprite, 0, sprite_x + (13 * gladiator_scale), sprite_y + (24 * gladiator_scale), 
-        gladiator_scale * idle_squash, gladiator_scale, idle_angle, c_white, 1);
-}
 
 // ====== SCISSOR TEST & RENDER HISTORY ======
-gpu_set_scissor(draw_area_x, draw_area_y, draw_area_width, draw_area_height);
+gpu_set_scissor(draw_area_x, draw_area_y + 16, draw_area_width, draw_area_height);
 
 // Calculate vertical offset
-var _y_history_start = margin_top;
+var _y_history_start = margin_top + 16;
 var _y_history       = _y_history_start - scroll_y;
 
 var _start_battle = battle_page * battles_per_page;
@@ -143,29 +140,29 @@ for (var j = _start_battle; j < _end_battle; j++) {
     draw_set_color(cor_texto);
 
     var _stats = _battle.stats;
-    draw_text(_history_x + 20, _y_history, "Total de Ações: " + string(ds_list_size(_battle.actions))); 
+    draw_text(_history_x, _y_history, "Total de Ações: " + string(ds_list_size(_battle.actions))); 
     _y_history   += 20; 
     _total_height+= 20;
 
-    draw_text(_history_x + 20, _y_history, "Total Dano Causado: " + string(_stats.total_damage_dealt));
+    draw_text(_history_x, _y_history, "Total Dano Causado: " + string(_stats.total_damage_dealt));
     _y_history   += 20;
-    draw_text(_history_x + 20, _y_history, "Média Dano Causado: " + string_format(_stats.mean_damage_dealt, 0, 2));
+    draw_text(_history_x, _y_history, "Média Dano Causado: " + string_format(_stats.mean_damage_dealt, 0, 2));
     _y_history   += 20;
-    draw_text(_history_x + 20, _y_history, "Desvio Padrão Dano Causado: " + string_format(_stats.std_dev_damage_dealt, 0, 2));
+    draw_text(_history_x, _y_history, "Desvio Padrão Dano Causado: " + string_format(_stats.std_dev_damage_dealt, 0, 2));
     _y_history   += 20;
-    draw_text(_history_x + 20, _y_history, "Total Dano Recebido: " + string(_stats.total_damage_received));
+    draw_text(_history_x, _y_history, "Total Dano Recebido: " + string(_stats.total_damage_received));
     _y_history   += 20;
-    draw_text(_history_x + 20, _y_history, "Média Dano Recebido: " + string_format(_stats.mean_damage_received, 0, 2));
+    draw_text(_history_x, _y_history, "Média Dano Recebido: " + string_format(_stats.mean_damage_received, 0, 2));
     _y_history   += 20;
-    draw_text(_history_x + 20, _y_history, "Desvio Padrão Dano Recebido: " + string_format(_stats.std_dev_damage_received, 0, 2));
+    draw_text(_history_x, _y_history, "Desvio Padrão Dano Recebido: " + string_format(_stats.std_dev_damage_received, 0, 2));
     _y_history   += 20;
-    draw_text(_history_x + 20, _y_history, "Número de Ataques: " + string(_stats.num_attacks));
+    draw_text(_history_x, _y_history, "Número de Ataques: " + string(_stats.num_attacks));
     _y_history   += 20;
-    draw_text(_history_x + 20, _y_history, "Número de Defesas: " + string(_stats.num_defenses));
+    draw_text(_history_x, _y_history, "Número de Defesas: " + string(_stats.num_defenses));
     _y_history   += 20;
-    draw_text(_history_x + 20, _y_history, "Número de Esquivas: " + string(_stats.num_dodges));
+    draw_text(_history_x, _y_history, "Número de Esquivas: " + string(_stats.num_dodges));
     _y_history   += 20;
-    draw_text(_history_x + 20, _y_history, "Número de Golpes Críticos: " + string(_stats.num_critical_hits));
+    draw_text(_history_x, _y_history, "Número de Golpes Críticos: " + string(_stats.num_critical_hits));
     _y_history   += 30; 
     _total_height+= 30;
 
@@ -194,12 +191,12 @@ for (var j = _start_battle; j < _end_battle; j++) {
     }
 
     // Column widths
-    var col_widths = [80, 128, 128, 186, 60]; 
+    var col_widths = [80, 116, 116, 170, 44]; 
 
     var x_table = _history_x; 
     var y_table = _y_history;
 
-    draw_set_color(c_white);
+    draw_set_color(cor_texto);
     draw_set_halign(fa_left);
 
     for (var row = 0; row < ds_grid_height(grid_actions); row++) {
@@ -229,13 +226,13 @@ scroll_y = clamp(scroll_y, 0, max_scroll);
 
 if (max_scroll > 0) {
     // We have content beyond the box => show a scroll bar
-    var bar_track_x = draw_area_width + 64; // track on far right
+    var bar_track_x = draw_area_width + 72; // track on far right
     var bar_track_y = draw_area_y;
-    var bar_track_w = 4;
+    var bar_track_w = 1;
     var bar_track_h = draw_area_height;
 
     // Draw track
-    draw_set_color(make_color_rgb(80, 80, 80));
+    draw_set_color(#DF9B67);
     draw_rectangle(bar_track_x, bar_track_y, bar_track_x + bar_track_w, bar_track_y + bar_track_h, false);
 
     // ratio of visible portion
@@ -250,12 +247,6 @@ if (max_scroll > 0) {
     var bar_y1 = bar_track_y + bar_y_offset;
     var bar_y2 = bar_y1 + bar_height;
 
-    draw_set_color(make_color_rgb(160, 160, 160));
+    draw_set_color(#A25B38);
     draw_rectangle(bar_track_x, bar_y1, bar_track_x + bar_track_w, bar_y2, false);
 }
-
-// ====== FINAL MESSAGES ======
-draw_set_color(cor_texto);
-draw_text(_history_x, room_height - 70, "Use as setas esquerda/direita para navegar pelas batalhas.");
-draw_text(_history_x, room_height - 50, "Use o scroll do mouse para visualizar mais.");
-draw_text(_history_x, room_height - 30, "Pressione Enter para comprar o gladiador selecionado.");

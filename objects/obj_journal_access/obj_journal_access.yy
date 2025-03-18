@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_journal_access",
-    "path":"sprites/spr_journal_access/spr_journal_access.yy",
+    "name":"spr_journal",
+    "path":"sprites/spr_journal/spr_journal.yy",
   },
   "spriteMaskId":null,
   "visible":true,

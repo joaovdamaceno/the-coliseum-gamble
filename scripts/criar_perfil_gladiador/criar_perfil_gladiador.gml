@@ -71,10 +71,7 @@ function criar_perfil_gladiador(_tipo, _generate_history) {
     _gladiator.right_leg_sprite = global.gladiator_right_legs[leg_index];
 
     // Arma
-    _gladiator.weapon_sprite = choose(
-        -1,
-        global.gladiator_weapons[irandom_range(0, array_length(global.gladiator_weapons) - 1)]
-    );
+    _gladiator.weapon_sprite = global.gladiator_weapons[irandom_range(0, array_length(global.gladiator_weapons) - 1)];
 
     // Gerar histórico de batalhas
     if (_generate_history) {
